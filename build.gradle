@@ -1,0 +1,53 @@
+buildscript {
+    ext {
+        byteBuddyVersion = '1.12.14'
+        lombokVersion = '1.18.24'
+    }
+}
+
+plugins {
+    id 'idea'
+    id 'java'
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+group 'com.appdirect'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2" }
+}
+
+dependencies {
+    testImplementation(
+        'org.junit.jupiter:junit-jupiter-api:5.7.0',
+        "org.projectlombok:lombok:${lombokVersion}"
+    )
+
+    testRuntimeOnly(
+        'org.junit.jupiter:junit-jupiter-engine:5.7.0',
+        "org.projectlombok:lombok:${lombokVersion}"
+    )
+
+    compileOnly(
+        "org.projectlombok:lombok:${lombokVersion}"
+    )
+
+    annotationProcessor(
+        "org.projectlombok:lombok:${lombokVersion}"
+    )
+
+    implementation(
+        "net.bytebuddy:byte-buddy-dep:${byteBuddyVersion}",
+        "org.projectlombok:lombok:${lombokVersion}",
+        'io.vavr:vavr:1.0.0-alpha-4',
+        "org.springframework.boot:spring-boot-starter-web"
+    )
+}
+
+test {
+    useJUnitPlatform()
+}
